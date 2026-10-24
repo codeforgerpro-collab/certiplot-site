@@ -1,0 +1,32 @@
+# Certiplot
+
+> Property checks for buyers in Greece and Cyprus. Certiplot puts the official public records about an area in one place - the State's zone price, what contracts there declared, building permits issued nearby, flood-risk and burnt land, Natura 2000 and seismic zones - with the source of every figure, so your questions to the seller, your lawyer and your engineer start from proof.
+
+Certiplot (a Tekmerion product, Athens) publishes, for every region and municipality of Greece and every district and municipality of Cyprus, the official public figures a property buyer should check: the State's zone price, contract prices, official price indices, flood-risk and burnt land, Natura 2000 and seismic zones - each with its source and date. It is information, not legal advice.
+
+Languages: English, Ελληνικά, Deutsch, Français, Nederlands, Español, Русский, العربية.
+
+Contact: codeforgerpro@gmail.com
+
+## Guides
+
+- [How to buy property in Greece: the step-by-step guide for foreign buyers](https://codeforgerpro-collab.github.io/certiplot-site/guides/how-to-buy-property-in-greece/): Buying a house or apartment in Greece as a foreigner, step by step: tax number, bank account, title check, Cadastre, engineer's certificate, energy certificate, price and signing.
+- [The costs of buying property in Greece: what to budget for](https://codeforgerpro-collab.github.io/certiplot-site/guides/costs-of-buying-property-in-greece/): Every cost a buyer in Greece should budget for, one by one: transfer tax or VAT, notary, lawyer, Cadastre registration, agent, engineer, and the yearly property tax.
+- [Greek tax number (AFM) and bank account for foreign buyers](https://codeforgerpro-collab.github.io/certiplot-site/guides/greek-tax-number-afm-for-foreigners/): Why a foreign buyer needs a Greek tax number (AFM) and bank account, how to get them in person or through a lawyer, and what to have ready.
+- [Title check in Greece: how to verify who owns a property](https://codeforgerpro-collab.github.io/certiplot-site/guides/greek-property-title-check/): What a title search in Greece covers, which certificates prove ownership and the absence of mortgages or seizures, and the warning signs a buyer should not ignore.
+- [Unauthorised construction in Greece and the engineer's certificate](https://codeforgerpro-collab.github.io/certiplot-site/guides/illegal-buildings-engineer-certificate-greece/): Why a Greek sale needs an engineer's certificate, what counts as unauthorised construction, how it is legalised, and what a buyer should ask before signing.
+- [The Hellenic Cadastre (Ktimatologio) and the KAEK explained](https://codeforgerpro-collab.github.io/certiplot-site/guides/hellenic-cadastre-ktimatologio-kaek/): What the Hellenic Cadastre records, how to find a property's KAEK on the public map, the documents it issues and the errors a buyer should look for.
+- [Mortgages, seizures and other encumbrances on Greek property](https://codeforgerpro-collab.github.io/certiplot-site/guides/property-encumbrances-greece-mortgage-seizure/): The encumbrances that can sit on a Greek property, how a buyer finds them, and how they are lifted before or at the contract.
+- [Zone price (objective value) vs market price in Greece](https://codeforgerpro-collab.github.io/certiplot-site/guides/zone-price-objective-value-vs-market-price-greece/): What the Greek zone price is, why it is not a market price, how it affects the tax you pay, and how to read it next to contract prices and the official index.
+- [Building permits near a property: what is being built next door](https://codeforgerpro-collab.github.io/certiplot-site/guides/building-permits-near-property-greece/): How to see the building permits issued around a property in Greece, and why new construction next door matters for views, light, noise and value.
+- [Golden Visa Greece: a property checklist before you invest](https://codeforgerpro-collab.github.io/certiplot-site/guides/golden-visa-greece-property-checklist/): What to check on a property bought for the Greek Golden Visa: the threshold for the address, the title, the engineer's certificate, the real value and the risks of the area.
+- [Buying in Cyprus: title deeds and the search certificate](https://codeforgerpro-collab.github.io/certiplot-site/guides/cyprus-title-deeds-search-certificate/): Why separate title deeds matter in Cyprus, what the Lands Office search certificate shows, why the sale contract is deposited, and what to check near the buffer zone.
+- [Buying property in Cyprus as a foreigner: permission, steps and checks](https://codeforgerpro-collab.github.io/certiplot-site/guides/buying-property-in-cyprus-as-a-foreigner/): How EU and non-EU buyers acquire property in Cyprus: the permission non-EU buyers need, the steps from reservation to transfer, and what to verify first.
+
+## Key pages
+
+- [All areas](https://codeforgerpro-collab.github.io/certiplot-site/areas/)
+- [Buyer checklist](https://codeforgerpro-collab.github.io/certiplot-site/buyer-checklist/)
+- [Free area check](https://codeforgerpro-collab.github.io/certiplot-site/contact/)
+- [Sources](https://codeforgerpro-collab.github.io/certiplot-site/sources/)
+- [Sitemap](https://codeforgerpro-collab.github.io/certiplot-site/sitemap.xml)
