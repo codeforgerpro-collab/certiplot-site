@@ -18,6 +18,20 @@ header .wrap{display:flex;align-items:center;gap:16px;min-height:62px;flex-wrap:
 .wcard{display:grid;grid-template-columns:30px 1fr;grid-template-rows:auto 1fr;gap:4px 12px;align-items:start;align-content:start;padding:16px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);text-decoration:none;transition:border-color .15s,transform .15s}
 .wcard:hover{border-color:#c9a45c;transform:translateY(-2px)}.wcard svg{grid-row:span 2;fill:none;stroke:#b08a3e;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .wcard b{font-size:16px}.wcard span{color:var(--muted);font-size:14.5px;line-height:1.5}
+[dir=rtl] .welcome h1{line-height:1.5}
+table.villages tr:target{background:rgba(201,164,92,.22);outline:2px solid #c9a45c}table.villages tr{scroll-margin-top:90px}
+.pricenote{display:flex;gap:10px;align-items:flex-start;margin:4px 0 18px;padding:12px 14px;border-radius:12px;border:1px solid rgba(201,164,92,.55);
+  background:rgba(201,164,92,.13);color:var(--ink);font-size:15px;line-height:1.5;max-width:62em}
+.pricenote svg{flex:none;margin-top:1px;fill:none;stroke:#a07d35;stroke-width:2;stroke-linecap:round}
+.welcome h1{margin:8px 0 12px;font-size:clamp(26px,3.6vw,40px);line-height:1.15}.welcome .ctas{margin:14px 0 4px}
+.asks{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:10px 28px;margin-top:22px}
+.asks h2{font-size:17px;margin:0 0 8px}.asks ul{margin:0;padding-inline-start:18px;line-height:1.9}.asks ul.cols{columns:2;column-gap:24px}
+@media (max-width:720px){.asks{grid-template-columns:1fr}.asks ul.cols{columns:1}}
+#cp-map{height:min(72vh,680px);min-height:380px;border-radius:14px;border:1px solid var(--line);margin:16px 0 10px;z-index:1}
+#cp-map .leaflet-popup-content{font-size:14.5px;line-height:1.55}#cp-map .leaflet-popup-content .cta{display:inline-block;margin-top:8px;padding:6px 12px;font-size:14px;color:#141414;text-decoration:none}
+.maplegend{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;font-size:13.5px;color:var(--muted)}.maplegend b{color:var(--ink);font-weight:600}
+.maplegend .sw{display:inline-flex}.maplegend i{display:inline-block;width:26px;height:12px}.maplegend .cyk{display:inline-flex;align-items:center;gap:6px}
+.maplegend .cyk i{width:12px;border-radius:50%}
 .welcome .promise{margin:16px 0 0;font-size:14px;color:var(--muted);text-align:center}
 @media (max-width:720px){.welcome{padding:20px 16px}}
 .flag{width:20px;height:14px;border-radius:2px;vertical-align:-2px;margin-inline-end:7px;box-shadow:0 0 0 1px rgba(0,0,0,.18);flex:none}

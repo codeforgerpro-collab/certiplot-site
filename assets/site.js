@@ -42,6 +42,8 @@
       ct.setAttribute('datetime',n.toISOString());
       ct.innerHTML=same? '<b>'+mine+'</b> · '+ck.getAttribute('data-gr') : ck.getAttribute('data-you')+': <b>'+mine+'</b> · '+ck.getAttribute('data-gr')+': <b>'+gr+'</b>';
     }catch(e){} }; tick(); setInterval(tick,30000); }
+  // ---- a link to one village (#v-...): bring its row into view once the page has settled
+  if(/^#v-\d+$/.test(location.hash)){ var vt=D.getElementById(location.hash.slice(1)); if(vt) setTimeout(function(){ vt.scrollIntoView({block:'center'}); },60); }
   // ---- the requirements form: name, e-mail and area come from the link in our reply
   D.querySelectorAll('form.details').forEach(function(f){ try{ var u=new URLSearchParams(location.search);
     ['name','email','area','ref'].forEach(function(k){ var v=u.get(k), el=f.querySelector('[name='+k+']'); if(v&&el) el.value=v.slice(0,200); });
