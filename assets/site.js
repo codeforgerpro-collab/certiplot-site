@@ -33,6 +33,15 @@
     var rs=D.getElementById('reset'); if(rs) rs.addEventListener('click',function(){ st={}; try{localStorage.removeItem(key)}catch(e){} boxes.forEach(function(b){b.checked=false}); upd(); });
     var pr=D.getElementById('print'); if(pr) pr.addEventListener('click',function(){ window.print(); });
     upd(); }
+  // ---- the visitor's date and time, and the time in Greece & Cyprus when it differs
+  var ck=D.querySelector('header .clock'), ct=D.getElementById('clk');
+  if(ck&&ct&&window.Intl){ var loc=lang==='en'?undefined:lang;
+    var tick=function(){ try{ var n=new Date(), o={weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'};
+      var mine=new Intl.DateTimeFormat(loc,o).format(n), gr=new Intl.DateTimeFormat(loc,{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Athens'}).format(n),
+          same=new Intl.DateTimeFormat('en',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Athens'}).format(n)===new Intl.DateTimeFormat('en',{hour:'2-digit',minute:'2-digit'}).format(n);
+      ct.setAttribute('datetime',n.toISOString());
+      ct.innerHTML=same? '<b>'+mine+'</b> · '+ck.getAttribute('data-gr') : ck.getAttribute('data-you')+': <b>'+mine+'</b> · '+ck.getAttribute('data-gr')+': <b>'+gr+'</b>';
+    }catch(e){} }; tick(); setInterval(tick,30000); }
   // ---- the requirements form: name, e-mail and area come from the link in our reply
   D.querySelectorAll('form.details').forEach(function(f){ try{ var u=new URLSearchParams(location.search);
     ['name','email','area','ref'].forEach(function(k){ var v=u.get(k), el=f.querySelector('[name='+k+']'); if(v&&el) el.value=v.slice(0,200); });
