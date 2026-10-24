@@ -46,12 +46,43 @@
   D.querySelectorAll('form.details').forEach(function(f){ try{ var u=new URLSearchParams(location.search);
     ['name','email','area','ref'].forEach(function(k){ var v=u.get(k), el=f.querySelector('[name='+k+']'); if(v&&el) el.value=v.slice(0,200); });
     var h=D.getElementById('det-area'); if(h&&u.get('area')) h.textContent=u.get('area').slice(0,80); }catch(e){} });
+  // ---- checks before a form leaves: a real e-mail address (and common typos), a phone number when WhatsApp or a call is wanted
+  var TYPO={'gmial.com':'gmail.com','gmai.com':'gmail.com','gmal.com':'gmail.com','gamil.com':'gmail.com','gnail.com':'gmail.com','gmaill.com':'gmail.com',
+    'gmail.co':'gmail.com','gmail.con':'gmail.com','gmail.cm':'gmail.com','gmail.om':'gmail.com','gmail.gr':'gmail.com','hotmial.com':'hotmail.com',
+    'hotmai.com':'hotmail.com','hotnail.com':'hotmail.com','hotmail.co':'hotmail.com','hotmail.con':'hotmail.com','yaho.com':'yahoo.com',
+    'yahooo.com':'yahoo.com','yahoo.co':'yahoo.com','yahoo.con':'yahoo.com','outlok.com':'outlook.com','outloo.com':'outlook.com','outlook.co':'outlook.com',
+    'outlook.con':'outlook.com','iclod.com':'icloud.com','icloud.co':'icloud.com','icoud.com':'icloud.com','live.co':'live.com','otenet.com':'otenet.gr',
+    'mail.r':'mail.ru','yandex.r':'yandex.ru','gmx.d':'gmx.de','web.d':'web.de'};
+  function emailOk(v){ return v.length<=254 && v.indexOf('..')<0 && /^[A-Za-z0-9.!#$%&'*+\/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)*\.[A-Za-z]{2,24}$/.test(v); }
+  function fixMail(v){ var p=v.split('@'); return p.length===2&&TYPO[p[1].toLowerCase()] ? p[0]+'@'+TYPO[p[1].toLowerCase()] : ''; }
+  function phoneOk(v,intl){ var t=v.trim(), d=t.replace(/\D/g,''); if(!/^(\+|00)?[\d\s().\/-]{6,24}$/.test(t)||d.length<8||d.length>15) return false; return !intl||/^(\+|00)/.test(t); }
+  D.querySelectorAll('form.lead').forEach(function(f){
+    var em=f.querySelector('[name=email]'), sg=f.querySelector('.sugg'), ph=f.querySelector('[name=phone]'), rb=f.querySelector('[name=reply_by]');
+    function suggest(){ if(!em||!sg) return ''; var v=em.value.trim(), s=fixMail(v); if(sg.getAttribute('data-s')===s) return s; sg.setAttribute('data-s',s); sg.textContent='';
+      if(s){ var b=D.createElement('button'); b.type='button'; b.textContent=S.email_typo.replace('{email}',s);
+        b.addEventListener('click',function(){ em.value=s; sg.textContent=''; sg.setAttribute('data-s',''); em.removeAttribute('aria-invalid'); }); sg.appendChild(b); }
+      return s; }
+    function needPhone(){ return !!(rb&&rb.selectedOptions&&rb.selectedOptions[0]&&rb.selectedOptions[0].hasAttribute('data-phone')); }
+    function syncPhone(){ if(!ph) return; var n=needPhone(); ph.required=n; ph.parentNode.classList.toggle('need',n); }
+    if(em) em.addEventListener('blur',function(){ var v=em.value.trim(); em.value=v; suggest(); if(v) em.setAttribute('aria-invalid',emailOk(v)?'false':'true'); });
+    if(ph) ph.addEventListener('blur',function(){ if(ph.value.trim()) ph.setAttribute('aria-invalid',phoneOk(ph.value,needPhone())?'false':'true'); });
+    if(rb){ rb.addEventListener('change',function(){ syncPhone(); if(needPhone()&&ph&&!ph.value) ph.focus(); }); syncPhone(); }
+  });
   // ---- the area-check form
   D.querySelectorAll('form.lead').forEach(function(f){
     f.addEventListener('submit',function(e){ e.preventDefault();
-      var msg=f.querySelector('.msg'), btn=f.querySelector('button[type=submit]'), fd=new FormData(f), data={};
+      var msg=f.querySelector('.msg'), btn=f.querySelector('button[type=submit]'), em=f.querySelector('[name=email]'), ph=f.querySelector('[name=phone]');
+      if(em) em.value=em.value.trim();
+      var fd=new FormData(f), data={};
       fd.forEach(function(v,k){ data[k]=(k in data&&data[k])?data[k]+', '+v:v; });
       if(!data.name||!data.email||!data.area||!f.querySelector('[name=consent]').checked){ msg.className='msg bad'; msg.textContent=S.required; return; }
+      if(!emailOk(data.email)){ msg.className='msg bad'; msg.textContent=S.email_invalid; em.setAttribute('aria-invalid','true'); em.focus(); return; }
+      var typo=fixMail(data.email); if(typo&&!f.getAttribute('data-typo-seen')){ f.setAttribute('data-typo-seen','1'); em.dispatchEvent(new Event('blur'));
+        msg.className='msg bad'; msg.textContent=S.email_typo.replace('{email}',typo); em.focus(); return; }
+      var opt=f.querySelector('[name=reply_by]'), wantsPhone=!!(opt&&opt.selectedOptions[0]&&opt.selectedOptions[0].hasAttribute('data-phone'));
+      if(ph&&(wantsPhone||(data.phone||'').trim())&&!phoneOk(data.phone||'',wantsPhone)){ msg.className='msg bad'; msg.textContent=S.phone_needed; ph.setAttribute('aria-invalid','true'); ph.focus(); return; }
+      if(data.phone) data.phone=data.phone.trim().replace(/^00/,'+');
+      if(wantsPhone&&data.phone) data.whatsapp='https://wa.me/'+data.phone.replace(/\D/g,'');
       if(data.botcheck) return;
       data.language=lang; data.page=location.href;
       var det=f.classList.contains('details'); if(det&&data.ref) data.ref=String(data.ref);
