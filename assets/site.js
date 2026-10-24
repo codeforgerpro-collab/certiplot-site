@@ -33,22 +33,30 @@
     var rs=D.getElementById('reset'); if(rs) rs.addEventListener('click',function(){ st={}; try{localStorage.removeItem(key)}catch(e){} boxes.forEach(function(b){b.checked=false}); upd(); });
     var pr=D.getElementById('print'); if(pr) pr.addEventListener('click',function(){ window.print(); });
     upd(); }
+  // ---- the requirements form: name, e-mail and area come from the link in our reply
+  D.querySelectorAll('form.details').forEach(function(f){ try{ var u=new URLSearchParams(location.search);
+    ['name','email','area','ref'].forEach(function(k){ var v=u.get(k), el=f.querySelector('[name='+k+']'); if(v&&el) el.value=v.slice(0,200); });
+    var h=D.getElementById('det-area'); if(h&&u.get('area')) h.textContent=u.get('area').slice(0,80); }catch(e){} });
   // ---- the area-check form
   D.querySelectorAll('form.lead').forEach(function(f){
     f.addEventListener('submit',function(e){ e.preventDefault();
       var msg=f.querySelector('.msg'), btn=f.querySelector('button[type=submit]'), fd=new FormData(f), data={};
-      fd.forEach(function(v,k){ data[k]=v; });
+      fd.forEach(function(v,k){ data[k]=(k in data&&data[k])?data[k]+', '+v:v; });
       if(!data.name||!data.email||!data.area||!f.querySelector('[name=consent]').checked){ msg.className='msg bad'; msg.textContent=S.required; return; }
       if(data.botcheck) return;
       data.language=lang; data.page=location.href;
-      var subject='Certiplot lead - '+data.area+' - '+lang.toUpperCase()+' - '+(data.purpose||'');
+      var det=f.classList.contains('details'); if(det&&data.ref) data.ref=String(data.ref);
+      var subject=(det?'Certiplot details - ':'Certiplot lead - ')+data.area+' - '+lang.toUpperCase()+(det?'':' - '+(data.purpose||''));
       var key=f.getAttribute('data-key'), mail=unmail(f.getAttribute('data-email')||'');
       if(!key){ var body=Object.keys(data).filter(function(k){return k!=='consent'&&k!=='botcheck'}).map(function(k){return k+': '+data[k]}).join('\n');
         location.href='mailto:'+mail+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body); msg.className='msg bad'; msg.textContent=S.error; return; }
       btn.disabled=true; var old=btn.textContent; btn.textContent=S.sending;
       data.access_key=key; data.subject=subject; data.from_name='Certiplot website'; data.replyto=data.email; delete data.consent;
       fetch(S.endpoint,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(data)})
-        .then(function(r){return r.json()}).then(function(j){ if(!j.success) throw 0; msg.className='msg ok'; msg.textContent=S.thanks; f.reset();
+        .then(function(r){return r.json()}).then(function(j){ if(!j.success) throw 0; msg.className='msg ok'; msg.textContent=det?(f.getAttribute('data-thanks')||S.thanks):S.thanks;
+            var nx=f.getAttribute('data-next'); if(nx){ var q='?name='+encodeURIComponent(data.name)+'&email='+encodeURIComponent(data.email)+'&area='+encodeURIComponent(data.area);
+              var a=D.createElement('a'); a.className='cta'; a.href=nx+q; a.textContent=f.getAttribute('data-next-label')||''; msg.appendChild(D.createElement('br')); msg.appendChild(a); }
+            f.reset();
             if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'lead-sent',event:true}); })
         .catch(function(){ msg.className='msg bad'; msg.textContent=S.error; })
         .finally(function(){ btn.disabled=false; btn.textContent=old; });

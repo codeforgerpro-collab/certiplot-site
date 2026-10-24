@@ -52,7 +52,7 @@ form.lead{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr));ba
 form.lead label{display:grid;gap:4px;font-size:14px;color:var(--muted)}
 form.lead input,form.lead select,form.lead textarea{font:inherit;font-size:16px;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
 form.lead .full{grid-column:1/-1}form.lead .consent{display:flex;gap:8px;align-items:flex-start;font-size:13.5px}
-form.lead .consent input{width:auto;margin-top:4px}form.lead .hp{display:none}
+form.lead .consent input{width:auto;margin-top:4px}form.lead fieldset{border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14.5px}form.lead fieldset legend{width:100%;color:var(--muted);font-size:14px;margin-bottom:4px}form.lead fieldset label{display:flex;gap:6px;align-items:center;color:var(--ink)}form.lead fieldset input{width:auto}form.lead .pair{display:flex;gap:8px}form.lead .hp{display:none}
 form.lead .msg{grid-column:1/-1;font-weight:600}form.lead .msg.ok{color:var(--ok)}form.lead .msg.bad{color:var(--bad)}
 .trust{display:flex;flex-wrap:wrap;gap:8px 16px;list-style:none;padding:0;margin:8px 0;font-size:14px}.trust li::before{content:"✓ ";color:var(--gold2);font-weight:700}
 .check-group{margin:18px 0}.check-group label{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:8px;cursor:pointer}
