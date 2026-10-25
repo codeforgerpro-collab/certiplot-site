@@ -44,6 +44,24 @@
     }catch(e){} }; tick(); setInterval(tick,30000); }
   // ---- a link to one village (#v-...): bring its row into view once the page has settled
   if(/^#v-\d+$/.test(location.hash)){ var vt=D.getElementById(location.hash.slice(1)); if(vt) setTimeout(function(){ vt.scrollIntoView({block:'center'}); },60); }
+
+  // ---- display modes (remembered on this device)
+  D.querySelectorAll('[data-set-theme]').forEach(function(b){
+    var mark=function(){ var cur=D.documentElement.getAttribute('data-theme'); D.querySelectorAll('[data-set-theme]').forEach(function(x){ x.setAttribute('aria-pressed', x.getAttribute('data-set-theme')===cur?'true':'false'); }); };
+    b.addEventListener('click',function(){ var t=b.getAttribute('data-set-theme'); D.documentElement.setAttribute('data-theme',t);
+      try{ localStorage.setItem('cp-theme',t); }catch(e){} mark(); var d=b.closest('details'); if(d) d.open=false; });
+    mark(); });
+  // ---- the opening: places roll with their official figures, their pin lights up on the map
+  var roll=D.getElementById('cp-roll');
+  if(roll){ var items=JSON.parse(roll.textContent||'[]'), nm=D.querySelector('.roller .rl-name'), fg=D.querySelector('.roller .rl-fig'), i=0, pins=D.querySelectorAll('.hero-map .pin');
+    var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches, hold=false, box=D.querySelector('.roller');
+    function show(k){ var it=items[k]; if(!it||!nm) return; box.classList.remove('in'); void box.offsetWidth; nm.textContent=it[0]; fg.textContent=it[1];
+      if(it[2]) nm.setAttribute('href',it[2]); box.classList.add('in');
+      pins.forEach(function(p){ p.classList.toggle('on', +p.getAttribute('data-i')===k); }); }
+    if(items.length&&!still){ box.addEventListener('mouseenter',function(){hold=true}); box.addEventListener('mouseleave',function(){hold=false});
+      setInterval(function(){ if(hold||D.hidden) return; i=(i+1)%items.length; show(i); },2800); }
+    pins.forEach(function(p){ p.addEventListener('mouseenter',function(){ i=+p.getAttribute('data-i'); show(i); }); });
+  }
   // ---- the requirements form: name, e-mail and area come from the link in our reply
   D.querySelectorAll('form.details').forEach(function(f){ try{ var u=new URLSearchParams(location.search);
     ['name','email','area','ref'].forEach(function(k){ var v=u.get(k), el=f.querySelector('[name='+k+']'); if(v&&el) el.value=v.slice(0,200); });
