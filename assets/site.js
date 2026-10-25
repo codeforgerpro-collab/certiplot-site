@@ -53,14 +53,24 @@
     mark(); });
   // ---- the opening: places roll with their official figures, their pin lights up on the map
   var roll=D.getElementById('cp-roll');
-  if(roll){ var items=JSON.parse(roll.textContent||'[]'), nm=D.querySelector('.roller .rl-name'), fg=D.querySelector('.roller .rl-fig'), i=0, pins=D.querySelectorAll('.hero-map .pin');
+  if(roll){ var items=JSON.parse(roll.textContent||'[]'), nm=D.querySelector('.roller .rl-name'), fg=D.querySelector('.roller .rl-fig'), i=0, pins=D.querySelectorAll('.hero-map .pin[data-i]');
     var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches, hold=false, box=D.querySelector('.roller');
     function show(k){ var it=items[k]; if(!it||!nm) return; box.classList.remove('in'); void box.offsetWidth; nm.textContent=it[0]; fg.textContent=it[1];
       if(it[2]) nm.setAttribute('href',it[2]); box.classList.add('in');
       pins.forEach(function(p){ p.classList.toggle('on', +p.getAttribute('data-i')===k); }); }
     if(items.length&&!still){ box.addEventListener('mouseenter',function(){hold=true}); box.addEventListener('mouseleave',function(){hold=false});
       setInterval(function(){ if(hold||D.hidden) return; i=(i+1)%items.length; show(i); },2800); }
-    pins.forEach(function(p){ p.addEventListener('mouseenter',function(){ i=+p.getAttribute('data-i'); show(i); }); });
+    pins.forEach(function(p){ p.parentNode.addEventListener('mouseenter',function(){ i=+p.getAttribute('data-i'); show(i); }); });
+  }
+  var hm=D.querySelector('.hero-map');
+  if(hm){ var tip=hm.querySelector('.map-tip');
+    var on=function(a){ var c=a.querySelector('.pin').getBoundingClientRect(), r=hm.getBoundingClientRect();
+      tip.textContent=a.getAttribute('data-name'); tip.hidden=false;
+      tip.style.left=(c.left+c.width/2-r.left)+'px'; tip.style.top=(c.top-r.top)+'px'; a.classList.add('hover'); };
+    var off=function(a){ tip.hidden=true; a.classList.remove('hover'); };
+    hm.querySelectorAll('a.mp').forEach(function(a){
+      a.addEventListener('mouseenter',function(){on(a)}); a.addEventListener('focus',function(){on(a)});
+      a.addEventListener('mouseleave',function(){off(a)}); a.addEventListener('blur',function(){off(a)}); });
   }
   // ---- the requirements form: name, e-mail and area come from the link in our reply
   D.querySelectorAll('form.details').forEach(function(f){ try{ var u=new URLSearchParams(location.search);
