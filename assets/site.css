@@ -22,6 +22,18 @@ header .wrap{display:flex;align-items:center;gap:16px;min-height:62px;flex-wrap:
 table.villages tr:target{background:rgba(201,164,92,.22);outline:2px solid #c9a45c}table.villages tr{scroll-margin-top:90px}
 .highlight{font-size:17px;border-inline-start:4px solid #c9a45c;padding:4px 0 4px 14px;margin:6px 0 16px;color:var(--ink)}
 form.lead small.gvnote{display:block;margin-top:4px;font-size:12.5px;color:var(--muted)}
+svg.bars{max-width:100%;height:auto;overflow:visible}svg.bars rect{fill:#c9a45c}svg.bars text{font-size:11px;text-anchor:middle;fill:var(--muted)}
+svg.bars text.n{fill:var(--ink);font-weight:600}svg.bars text.m{fill:#a07d35;font-size:10.5px}.chart{overflow-x:auto;margin:6px 0}
+@media (max-width:720px){table.sales,table.calc,table.villages{display:block;overflow-x:auto;max-width:100%}table.sales td.v{white-space:normal}}
+.chg{font-weight:700;white-space:nowrap}.chg.up{color:var(--ok)}.chg.down{color:var(--bad)}.chg.flat{color:var(--muted)}
+table.permits th,table.permits td{text-align:center}p.permchg{margin:8px 0 18px}
+.flag-on{color:var(--bad);font-weight:600}.flag-off{color:var(--ok)}table.sales td.v{white-space:nowrap}
+.picks{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}.picks input{flex:1 1 220px;font:inherit;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.cmp-wrap{overflow-x:auto}table.cmp th,table.cmp td{vertical-align:top;min-width:160px}table.cmp button.rm{font:inherit;font-size:12.5px;border:0;background:none;color:var(--bad);cursor:pointer;padding:0}
+form.lead [hidden]{display:none!important}form.calc{grid-template-columns:repeat(2,minmax(0,1fr))}form.calc small{font-size:12.5px}table.calc tr.tot th,table.calc tr.tot td{font-weight:700;border-top:2px solid var(--ink)}
+details.rule{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0;background:var(--card)}details.rule summary{cursor:pointer;font-weight:600}
+details.rule .badge{display:inline-block;margin-inline-start:8px;padding:1px 8px;border-radius:999px;background:#c9a45c;color:#141414;font-size:12px;font-weight:600}
+details.rule.ann{border-color:#c9a45c;background:rgba(201,164,92,.08)}ul.news{line-height:1.5}ul.news li{margin:10px 0}section.tools{margin:6px 0 26px}
 .pricenote{display:flex;gap:10px;align-items:flex-start;margin:4px 0 18px;padding:12px 14px;border-radius:12px;border:1px solid rgba(201,164,92,.55);
   background:rgba(201,164,92,.13);color:var(--ink);font-size:15px;line-height:1.5;max-width:62em}
 .pricenote svg{flex:none;margin-top:1px;fill:none;stroke:#a07d35;stroke-width:2;stroke-linecap:round}

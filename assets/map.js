@@ -35,6 +35,24 @@
           if(map.getZoom()>=10) vlayer.addTo(map); }).catch(function(){}); }
       else if(vlayer){ if(on&&!map.hasLayer(vlayer)) vlayer.addTo(map); if(!on&&map.hasLayer(vlayer)) map.removeLayer(vlayer); } }
     map.on('zoomend',villages); villages();
+  // ---- extra layers: beaches (water quality), industrial sites, air-quality stations, earthquakes
+  (function(){ var LL=M.layers||{}, groups={}, loaded=false, Q=M.quality||{};
+    var QC={excellent:'#1565c0',good:'#42a5f5',sufficient:'#ffa726',poor:'#e53935'};
+    ['beach','industry','air','quake'].forEach(function(k){ groups[k]=L.layerGroup(); });
+    function fill(j){
+      (j.beach||[]).forEach(function(b){ L.circleMarker([b[0],b[1]],{radius:5,weight:1,color:'#0d47a1',fillColor:QC[b[3]]||'#9aa3ad',fillOpacity:.95})
+        .bindPopup('<b>'+esc(b[2])+'</b><br>'+esc(Q[b[3]]||b[3]||'')+(b[4]?'<br><a href="'+esc(b[4])+'" target="_blank" rel="noopener">'+esc(M.beach_profile||'')+'</a>':'')).addTo(groups.beach); });
+      (j.industry||[]).forEach(function(b){ L.circleMarker([b[0],b[1]],{radius:6,weight:2,color:'#4a148c',fillColor:b[4]?'#d50000':'#7e57c2',fillOpacity:.85})
+        .bindPopup('<b>'+esc(b[2])+'</b><br>'+esc(b[3])+(b[4]?'<br><b>'+esc(M.seveso||'')+'</b>':'')).addTo(groups.industry); });
+      (j.air||[]).forEach(function(b){ L.circleMarker([b[0],b[1]],{radius:6,weight:1,color:'#1b5e20',fillColor:'#66bb6a',fillOpacity:.9})
+        .bindPopup('<b>'+esc(b[2])+'</b><br>PM2.5 '+esc(b[3]==null?'–':b[3])+' · PM10 '+esc(b[4]==null?'–':b[4])+' · NO₂ '+esc(b[5]==null?'–':b[5])+' µg/m³').addTo(groups.air); });
+      (j.quake||[]).forEach(function(b){ L.circleMarker([b[0],b[1]],{radius:3+2*(b[2]-4),weight:2,color:'#c62828',fill:false})
+        .bindPopup(esc((M.magnitude||'').replace('{m}',b[2]).replace('{date}',b[3]))).addTo(groups.quake); }); }
+    function load(){ if(loaded) return; loaded=true; fetch(root+'assets/layers.json').then(function(r){return r.json()}).then(fill).catch(function(){}); }
+    var ov={}; ['beach','industry','air','quake'].forEach(function(k){ ov[esc(LL[k]||k)]=groups[k]; });
+    L.control.layers(null,ov,{collapsed:window.innerWidth<720}).addTo(map); map.on('overlayadd',load);
+  })();
+
     var lg=document.getElementById('cp-map-legend');
     if(lg&&vals.length){ var f=function(v){return '€'+Math.round(v).toLocaleString(document.documentElement.lang)};
       lg.innerHTML='<b>'+esc(M.legend)+'</b><span class="sw">'+COL.map(function(c,i){return '<i style="background:'+c+'" title="'+(i?f(cut[i-1]):'')+'"></i>'}).join('')+'</span>'
