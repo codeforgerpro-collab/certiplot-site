@@ -20,6 +20,8 @@ header .wrap{display:flex;align-items:center;gap:16px;min-height:62px;flex-wrap:
 .wcard b{font-size:16px}.wcard span{color:var(--muted);font-size:14.5px;line-height:1.5}
 [dir=rtl] .welcome h1{line-height:1.5}
 table.villages tr:target{background:rgba(201,164,92,.22);outline:2px solid #c9a45c}table.villages tr{scroll-margin-top:90px}
+.highlight{font-size:17px;border-inline-start:4px solid #c9a45c;padding:4px 0 4px 14px;margin:6px 0 16px;color:var(--ink)}
+form.lead small.gvnote{display:block;margin-top:4px;font-size:12.5px;color:var(--muted)}
 .pricenote{display:flex;gap:10px;align-items:flex-start;margin:4px 0 18px;padding:12px 14px;border-radius:12px;border:1px solid rgba(201,164,92,.55);
   background:rgba(201,164,92,.13);color:var(--ink);font-size:15px;line-height:1.5;max-width:62em}
 .pricenote svg{flex:none;margin-top:1px;fill:none;stroke:#a07d35;stroke-width:2;stroke-linecap:round}
@@ -77,7 +79,7 @@ details.faq{border-bottom:1px solid var(--line);padding:10px 0}details.faq summa
 .band{background:var(--nav);color:#efe9dc;border-radius:16px;padding:24px;margin:34px 0}
 .band h2{margin-top:0;color:#fff}.band p{color:#cfc8b8}
 form.lead{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr));background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:18px}
-form.lead label{display:grid;gap:4px;font-size:14px;color:var(--muted)}
+form.lead label{display:grid;gap:4px;font-size:14px;color:var(--muted);align-content:start}
 form.lead input,form.lead select,form.lead textarea{font:inherit;font-size:16px;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
 form.lead .full{grid-column:1/-1}form.lead .consent{display:flex;gap:8px;align-items:flex-start;font-size:13.5px}
 form.lead .consent input{width:auto;margin-top:4px}form.lead fieldset{border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14.5px}form.lead fieldset legend{width:100%;color:var(--muted);font-size:14px;margin-bottom:4px}form.lead fieldset label{display:flex;gap:6px;align-items:center;color:var(--ink)}form.lead fieldset input{width:auto}form.lead .pair{display:flex;gap:8px}form.lead .hp{display:none}

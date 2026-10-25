@@ -70,6 +70,41 @@
     if(ph) ph.addEventListener('blur',function(){ if(ph.value.trim()) ph.setAttribute('aria-invalid',phoneOk(ph.value,needPhone())?'false':'true'); });
     if(rb){ rb.addEventListener('change',function(){ syncPhone(); if(needPhone()&&ph&&!ph.value) ph.focus(); }); syncPhone(); }
   });
+  // ---- where the buyer lives: every country (named in the page's language by the browser) and its towns (GeoNames)
+  var CC='AD AE AF AG AI AL AM AO AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG US UY UZ VA VC VE VG VI VN VU WF WS XK YE YT ZA ZM ZW'.split(' ');
+  var LG={he:'IL',el:'GR',de:'DE',nl:'NL',ru:'RU',ar:'AE',fr:'FR',es:'ES',en:'GB'};
+  D.querySelectorAll('form.lead input[name=country]').forEach(function(inp,ix){
+    if(!window.Intl||!Intl.DisplayNames) return; var dn; try{ dn=new Intl.DisplayNames([lang],{type:'region'}); }catch(e){ return; }
+    var sel=D.createElement('select'); sel.name='country'; sel.setAttribute('autocomplete','country');
+    var o0=D.createElement('option'); o0.value=''; o0.textContent=inp.getAttribute('data-ph')||''; sel.appendChild(o0);
+    CC.map(function(c){ var n=''; try{ n=dn.of(c); }catch(e){} return [c,n]; }).filter(function(x){ return x[1]&&x[1]!==x[0]; })
+      .sort(function(a,b){ return a[1].localeCompare(b[1],lang); })
+      .forEach(function(x){ var o=D.createElement('option'); o.value=x[0]; o.textContent=x[1]; sel.appendChild(o); });
+    var guess=''; (navigator.languages||[navigator.language||'']).some(function(l){ var r=(l||'').split('-')[1]; if(r&&r.length===2){ guess=r.toUpperCase(); return true; } return false; });
+    if(guess) sel.value=guess;
+    inp.parentNode.replaceChild(sel,inp);
+    var f=sel.form, city=f&&f.querySelector('input[name=city]'); if(!city) return;
+    var dl=D.createElement('datalist'); dl.id='cp-cities-'+ix; f.appendChild(dl); city.setAttribute('list',dl.id);
+    var cache={};
+    function load(){ var c=sel.value; dl.innerHTML=''; if(!c) return;
+      var fill=function(names){ dl.innerHTML=names.slice(0,4000).map(function(n){ return '<option value="'+String(n).replace(/[&"<>]/g,function(m){return {'&':'&amp;','"':'&quot;','<':'&lt;','>':'&gt;'}[m]})+'">'; }).join(''); };
+      if(cache[c]) return fill(cache[c]);
+      fetch(root+'assets/cities/'+c+'.json').then(function(r){ return r.json(); }).then(function(n){ cache[c]=n; if(sel.value===c) fill(n); }).catch(function(){}); }
+    sel.addEventListener('change',function(){ load(); city.value=''; }); load();
+  });
+  // ---- Golden Visa: the budget choices become the official minimums (and the area's own minimum is pre-selected)
+  D.querySelectorAll('form.lead').forEach(function(f){
+    var pu=f.querySelector('[name=purpose]'), bu=f.querySelector('select[name=budget]'), note=f.querySelector('.gvnote');
+    if(!pu||!bu||!bu.getAttribute('data-gv')) return;
+    var orig=bu.innerHTML, gv=JSON.parse(bu.getAttribute('data-gv')), mn=bu.getAttribute('data-gvmin');
+    function sw(){ var on=!!(pu.selectedOptions[0]&&pu.selectedOptions[0].hasAttribute('data-gv'));
+      if(on===(bu.getAttribute('data-mode')==='gv')) return; bu.setAttribute('data-mode',on?'gv':'');
+      if(on){ bu.innerHTML=gv.map(function(t){ var o=D.createElement('option'); o.textContent=t; return o.outerHTML; }).join('');
+        bu.selectedIndex = mn==='800000'?2 : mn==='400000'?1 : mn==='cy'?4 : gv.length-1; }
+      else bu.innerHTML=orig;
+      if(note) note.hidden=!on; }
+    pu.addEventListener('change',sw); sw();
+  });
   // ---- the area-check form
   D.querySelectorAll('form.lead').forEach(function(f){
     f.addEventListener('submit',function(e){ e.preventDefault();
@@ -84,6 +119,7 @@
       var opt=f.querySelector('[name=reply_by]'), wantsPhone=!!(opt&&opt.selectedOptions[0]&&opt.selectedOptions[0].hasAttribute('data-phone'));
       if(ph&&(wantsPhone||(data.phone||'').trim())&&!phoneOk(data.phone||'',wantsPhone)){ msg.className='msg bad'; msg.textContent=S.phone_needed; ph.setAttribute('aria-invalid','true'); ph.focus(); return; }
       if(data.phone) data.phone=data.phone.trim().replace(/^00/,'+');
+      var cs=f.querySelector('select[name=country]'); if(cs&&cs.value) data.country=cs.selectedOptions[0].textContent+' ('+cs.value+')';
       if(wantsPhone&&data.phone) data.whatsapp='https://wa.me/'+data.phone.replace(/\D/g,'');
       if(data.botcheck) return;
       data.language=lang; data.page=location.href;

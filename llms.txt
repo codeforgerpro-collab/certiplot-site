@@ -4,7 +4,7 @@
 
 Certiplot (a Tekmerion product, Athens) publishes, for every region and municipality of Greece and every district and municipality of Cyprus, the official public figures a property buyer should check: the State's zone price, contract prices, official price indices, flood-risk and burnt land, Natura 2000 and seismic zones - each with its source and date. It is information, not legal advice.
 
-Languages: English, Ελληνικά, Deutsch, Français, Nederlands, Español, Русский, العربية.
+Languages: English, Ελληνικά, Deutsch, Français, Nederlands, Español, Русский, العربية, עברית.
 
 Contact: codeforgerpro@gmail.com
 
