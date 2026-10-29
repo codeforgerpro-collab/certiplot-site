@@ -113,7 +113,7 @@ footer nav a{margin-inline-end:12px}
 @media (max-width:720px){table{font-size:14.5px}th{width:52%}td.v{white-space:normal}td.small{font-size:12px}body{font-size:16px}nav.top{margin-inline-start:0;gap:10px;font-size:14px}header{position:static}form.lead{grid-template-columns:1fr}.wa span{display:none}}
 @media print{header,footer,.wa,.band,form.lead,.search,.cta{display:none!important}body{background:#fff;color:#000}}
 .tool-out{margin:14px 0 18px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--card);min-height:24px}
-.tool-out:empty{display:none}.band p.small{color:inherit;opacity:.82}.tool-out p{margin:.45em 0}.tool-out .big{font-size:1.25em;font-weight:600}
+.tool-out:empty{display:none}.tool-out .ask{border-inline-start:3px solid var(--gold2);padding:4px 0 4px 12px}.band p.small{color:inherit;opacity:.82}.tool-out p{margin:.45em 0}.tool-out .big{font-size:1.25em;font-weight:600}
 .verdict{font-weight:600;padding:8px 12px;border-radius:10px;display:inline-block}.verdict.ok{background:rgba(91,194,127,.14);color:var(--ok)}
 .verdict.warn{background:rgba(216,180,106,.18);color:var(--gold)}.verdict.bad{background:rgba(239,138,128,.16);color:var(--bad)}
 .gauge{position:relative;height:14px;border-radius:7px;background:var(--line);margin:12px 0 6px;max-width:560px}

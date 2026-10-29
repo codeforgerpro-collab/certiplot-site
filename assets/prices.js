@@ -21,12 +21,15 @@
       sf.kind.value=kind; if(m2&&(!sf.size.value||sf.size.getAttribute('data-auto'))){ sf.size.value=m2; sf.size.setAttribute('data-auto','1'); }
       if(F.built&&F.built.value&&!sf.year_built.value) sf.year_built.value=F.built.value; }
     var via=r&&r[7]&&byId[r[7]]?'<p class="small">'+esc(fmt(I.pc.via,{area:byId[r[7]][1]}))+'</p>':'';
+    var A=(I.asking||{}), ak=(A.premium||{})[kind], askp='';                // 29 Oct 2026: the approximate asking price
+    if(ak&&r&&r[0]) askp='<p class="ask">'+esc(fmt(A.line,{eur:n(r[0]*(1+ak[0])),lo:n(r[0]*(1+ak[1])),hi:n(r[0]*(1+ak[2]))}))
+      +'<br><span class="small">'+esc(fmt(A.src,{pct:Math.round(ak[0]*100)}))+'</span></p>';
     if(mode==='pc'){
       var price=num(F.price.value);
       if(price&&m2) h+='<p class="big">'+esc(fmt(T.ask,{eur:n(price/m2)}))+'</p>';
       if(r&&r[0]){
         h+='<p>'+esc(fmt(T.mid,{area:r[7]&&byId[r[7]]?byId[r[7]][1]:name,first:ml(r[4]),last:ml(r[5]),eur:n(r[0]),deeds:n(r[3]),p25:r[1]!=null?n(r[1]):'–',p75:r[2]!=null?n(r[2]):'–'}))
-          +' <span class="small">· '+esc(I.grades[r[6]]||'')+'</span></p>'+via;
+          +' <span class="small">· '+esc(I.grades[r[6]]||'')+'</span></p>'+via+askp;
         if(price&&m2){ var a=price/m2, pct=Math.round(100*(a/r[0]-1)), cls, txt;
           if(r[1]!=null&&a<r[1]){ cls='ok'; txt=T.below; } else if(r[2]==null||a<=r[2]){ cls='ok'; txt=T.within; }
           else { cls=a>r[2]*1.5?'bad':'warn'; txt=fmt(a>r[2]*1.5?T.far_above:T.above,{pct:n(pct)}); }
@@ -38,7 +41,7 @@
       if(d.s&&price) h+='<p>'+esc(fmt(T.yield,{income:n(d.s[1]),pct:(100*d.s[1]/price).toFixed(1)}))+'</p>';
     } else {
       if(r&&r[0]&&m2){ h+='<p class="big">'+esc(fmt(T.range,{area:name,lo:n((r[1]||r[0]*0.8)*m2),hi:n((r[2]||r[0]*1.2)*m2),p25:r[1]!=null?n(r[1]):'–',p75:r[2]!=null?n(r[2]):'–',m2:n(m2)}))+'</p>'; }
-      if(r&&r[0]) h+='<p>'+esc(fmt(T.mid,{eur:n(r[0]),deeds:n(r[3]),first:ml(r[4]),last:ml(r[5])}))+' <span class="small">· '+esc(I.grades[r[6]]||'')+'</span></p>'+via;
+      if(r&&r[0]) h+='<p>'+esc(fmt(T.mid,{eur:n(r[0]),deeds:n(r[3]),first:ml(r[4]),last:ml(r[5])}))+' <span class="small">· '+esc(I.grades[r[6]]||'')+'</span></p>'+via+askp;
       else h+='<p>'+esc(T.none)+'</p>';
       var lt=((LT||{})[z[0]]||{})[kind]||[];
       if(lt.length) h+='<h3>'+esc(T.latest_h)+'</h3><div class="cmp-wrap"><table class="sales"><tr><th></th><th>m²</th><th>€/m²</th><th></th></tr>'
