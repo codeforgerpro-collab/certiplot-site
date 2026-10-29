@@ -143,6 +143,10 @@
       var fd=new FormData(f), data={};
       fd.forEach(function(v,k){ data[k]=(k in data&&data[k])?data[k]+', '+v:v; });
       if(!data.name||!data.email||!data.area||!f.querySelector('[name=consent]').checked){ msg.className='msg bad'; msg.textContent=S.required; return; }
+      var pf=f.querySelector('fieldset.pass');                            // 29 Oct 2026: agree or not - one must be chosen
+      if(pf&&!f.querySelector('[name=pass_ok]:checked')){ pf.classList.add('need'); msg.className='msg bad'; msg.textContent=pf.getAttribute('data-need')||S.required;
+        var r1=pf.querySelector('input'); if(r1) r1.focus(); return; }
+      if(pf) pf.classList.remove('need');
       if(!emailOk(data.email)){ msg.className='msg bad'; msg.textContent=S.email_invalid; em.setAttribute('aria-invalid','true'); em.focus(); return; }
       var typo=fixMail(data.email); if(typo&&!f.getAttribute('data-typo-seen')){ f.setAttribute('data-typo-seen','1'); em.dispatchEvent(new Event('blur'));
         msg.className='msg bad'; msg.textContent=S.email_typo.replace('{email}',typo); em.focus(); return; }
