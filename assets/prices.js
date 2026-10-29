@@ -21,7 +21,7 @@
       sf.kind.value=kind; if(m2&&(!sf.size.value||sf.size.getAttribute('data-auto'))){ sf.size.value=m2; sf.size.setAttribute('data-auto','1'); }
       if(F.built&&F.built.value&&!sf.year_built.value) sf.year_built.value=F.built.value; }
     var via=r&&r[7]&&byId[r[7]]?'<p class="small">'+esc(fmt(I.pc.via,{area:byId[r[7]][1]}))+'</p>':'';
-    var A=(I.asking||{}), ak=(A.premium||{})[kind], askp='';                // 29 Oct 2026: the approximate asking price
+    var A=(I.asking||{}), ak=(d.a||{})[kind], askp='';                // 29 Oct 2026: the approximate asking price
     if(ak&&r&&r[0]) askp='<p class="ask">'+esc(fmt(A.line,{eur:n(r[0]*(1+ak[0])),lo:n(r[0]*(1+ak[1])),hi:n(r[0]*(1+ak[2]))}))
       +'<br><span class="small">'+esc(fmt(A.src,{pct:Math.round(ak[0]*100)}))+'</span></p>';
     if(mode==='pc'){
