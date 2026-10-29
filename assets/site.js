@@ -100,7 +100,7 @@
   });
   // ---- where the buyer lives: every country (named in the page's language by the browser) and its towns (GeoNames)
   var CC='AD AE AF AG AI AL AM AO AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG US UY UZ VA VC VE VG VI VN VU WF WS XK YE YT ZA ZM ZW'.split(' ');
-  var LG={he:'IL',el:'GR',de:'DE',nl:'NL',ru:'RU',ar:'AE',fr:'FR',es:'ES',en:'GB'};
+  var LG={he:'IL',el:'GR',de:'DE',nl:'NL',ru:'RU',ar:'AE',fr:'FR',es:'ES',en:'GB',zh:'CN',tr:'TR'};
   D.querySelectorAll('form.lead input[name=country]').forEach(function(inp,ix){
     if(!window.Intl||!Intl.DisplayNames) return; var dn; try{ dn=new Intl.DisplayNames([lang],{type:'region'}); }catch(e){ return; }
     var sel=D.createElement('select'); sel.name='country'; sel.setAttribute('autocomplete','country');
@@ -133,8 +133,10 @@
       if(note) note.hidden=!on; }
     pu.addEventListener('change',sw); sw();
   });
+  // ---- the area from the price check (?area=...) on the area-check form
+  try{ var qa=new URLSearchParams(location.search).get('area'); if(qa) D.querySelectorAll('form.lead:not(.tool) [name=area]').forEach(function(i){ if(!i.value) i.value=qa; }); }catch(e){}
   // ---- the area-check form
-  D.querySelectorAll('form.lead').forEach(function(f){
+  D.querySelectorAll('form.lead:not(.tool)').forEach(function(f){
     f.addEventListener('submit',function(e){ e.preventDefault();
       var msg=f.querySelector('.msg'), btn=f.querySelector('button[type=submit]'), em=f.querySelector('[name=email]'), ph=f.querySelector('[name=phone]');
       if(em) em.value=em.value.trim();
@@ -152,14 +154,15 @@
       if(data.botcheck) return;
       data.language=lang; data.page=location.href;
       var det=f.classList.contains('details'); if(det&&data.ref) data.ref=String(data.ref);
-      var subject=(det?'Certiplot details - ':'Certiplot lead - ')+data.area+' - '+lang.toUpperCase()+(det?'':' - '+(data.purpose||''));
+      var sel=f.classList.contains('seller');                            // 29 Oct 2026: an owner's valuation request
+      var subject=(det?'Certiplot details - ':sel?'Certiplot seller - ':'Certiplot lead - ')+data.area+' - '+lang.toUpperCase()+(det||sel?'':' - '+(data.purpose||''));
       var key=f.getAttribute('data-key'), mail=unmail(f.getAttribute('data-email')||'');
       if(!key){ var body=Object.keys(data).filter(function(k){return k!=='consent'&&k!=='botcheck'}).map(function(k){return k+': '+data[k]}).join('\n');
         location.href='mailto:'+mail+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body); msg.className='msg bad'; msg.textContent=S.error; return; }
       btn.disabled=true; var old=btn.textContent; btn.textContent=S.sending;
       data.access_key=key; data.subject=subject; data.from_name='Certiplot website'; data.replyto=data.email; delete data.consent;
       fetch(S.endpoint,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(data)})
-        .then(function(r){return r.json()}).then(function(j){ if(!j.success) throw 0; msg.className='msg ok'; msg.textContent=det?(f.getAttribute('data-thanks')||S.thanks):S.thanks;
+        .then(function(r){return r.json()}).then(function(j){ if(!j.success) throw 0; msg.className='msg ok'; msg.textContent=(det||sel)?(f.getAttribute('data-thanks')||S.thanks):S.thanks;
             var nx=f.getAttribute('data-next'); if(nx){ var q='?name='+encodeURIComponent(data.name)+'&email='+encodeURIComponent(data.email)+'&area='+encodeURIComponent(data.area);
               var a=D.createElement('a'); a.className='cta'; a.href=nx+q; a.textContent=f.getAttribute('data-next-label')||''; msg.appendChild(D.createElement('br')); msg.appendChild(a); }
             f.reset();

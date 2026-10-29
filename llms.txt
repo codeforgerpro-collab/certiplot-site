@@ -4,7 +4,7 @@
 
 Certiplot (a Tekmerion product, Athens) publishes, for every region and municipality of Greece and every district and municipality of Cyprus, the official public figures a property buyer should check: the State's zone price, contract prices, official price indices, flood-risk and burnt land, Natura 2000 and seismic zones - each with its source and date. It is information, not legal advice.
 
-Languages: English, Ελληνικά, Deutsch, Français, Nederlands, Español, Русский, العربية, עברית.
+Languages: English, Ελληνικά, Deutsch, Français, Nederlands, Español, Русский, العربية, עברית, 中文, Türkçe.
 
 Contact: codeforgerpro@gmail.com
 
@@ -22,6 +22,7 @@ Contact: codeforgerpro@gmail.com
 - [Golden Visa Greece: a property checklist before you invest](https://codeforgerpro-collab.github.io/certiplot-site/guides/golden-visa-greece-property-checklist/): What to check on a property bought for the Greek Golden Visa: the threshold for the address, the title, the engineer's certificate, the real value and the risks of the area.
 - [Buying in Cyprus: title deeds and the search certificate](https://codeforgerpro-collab.github.io/certiplot-site/guides/cyprus-title-deeds-search-certificate/): Why separate title deeds matter in Cyprus, what the Lands Office search certificate shows, why the sale contract is deposited, and what to check near the buffer zone.
 - [Buying property in Cyprus as a foreigner: permission, steps and checks](https://codeforgerpro-collab.github.io/certiplot-site/guides/buying-property-in-cyprus-as-a-foreigner/): How EU and non-EU buyers acquire property in Cyprus: the permission non-EU buyers need, the steps from reservation to transfer, and what to verify first.
+- [Selling property in Greece: documents, costs and timing for owners in Greece and abroad](https://codeforgerpro-collab.github.io/certiplot-site/guides/selling-property-in-greece/): How to sell a house or apartment in Greece, also from abroad: the documents, the engineer's certificate, the energy certificate, taxes and costs, and how long it takes.
 
 ## Key pages
 
