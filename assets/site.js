@@ -49,7 +49,7 @@
   D.querySelectorAll('[data-set-theme]').forEach(function(b){
     var mark=function(){ var cur=D.documentElement.getAttribute('data-theme'); D.querySelectorAll('[data-set-theme]').forEach(function(x){ x.setAttribute('aria-pressed', x.getAttribute('data-set-theme')===cur?'true':'false'); }); };
     b.addEventListener('click',function(){ var t=b.getAttribute('data-set-theme'); D.documentElement.setAttribute('data-theme',t);
-      try{ localStorage.setItem('cp-theme',t); }catch(e){} mark(); var d=b.closest('details'); if(d) d.open=false; });
+      try{ localStorage.setItem('cp-theme-v2',t); }catch(e){} mark(); var d=b.closest('details'); if(d) d.open=false; });
     mark(); });
   // ---- the opening: places roll with their official figures, their pin lights up on the map
   var roll=D.getElementById('cp-roll');
