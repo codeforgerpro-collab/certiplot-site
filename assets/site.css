@@ -126,6 +126,56 @@ form.lead fieldset.pass{border:1px solid var(--line);border-radius:10px;padding:
 @media (max-width:720px){form.tool{grid-template-columns:1fr 1fr}form.tool label:first-child{grid-column:1/-1}
  nav.top a.n-map{display:none}.tool-out{padding:12px}}
 @media (max-width:1500px){nav.top a.n-compare,nav.top a.n-pricing{display:none}}
+/* CPUX-36: the two doors on the home page */
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:4px 0 20px}
+.door{border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden;transition:border-color .15s,box-shadow .15s}
+.door:hover{border-color:var(--gold2);box-shadow:0 10px 30px rgba(15,42,68,.10)}
+.door-main{display:flex;gap:14px;align-items:flex-start;padding:18px 18px 12px;text-decoration:none;color:var(--ink)}
+.door-main svg{width:40px;height:40px;flex:none;padding:8px;border-radius:12px;background:rgba(var(--accent-rgb),.16);fill:none;stroke:var(--gold);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.door-main b{display:block;font-family:'CP Brand',Georgia,serif;font-size:24px;line-height:1.15}
+.door-main small{display:block;color:var(--muted);font-size:15px;line-height:1.45;margin:4px 0 8px}
+.door-main em{font-style:normal;font-weight:700;color:var(--gold)}
+.door.sell .door-main svg{background:rgba(15,42,68,.08);stroke:var(--ink)}
+.door-more{display:flex;flex-wrap:wrap;gap:8px;padding:0 18px 16px 72px}
+.door-more a{font-size:14px;font-weight:600;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:7px 12px;background:var(--bg)}
+.door-more a:hover{border-color:var(--gold2)}
+.hp-all{margin:14px 0 0}
+/* CPUX-36: the thumb bar - phones and small tablets only */
+.tbar{display:none}
+@media (max-width:760px){
+ .tbar{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;inset-inline:0;bottom:0;z-index:40;background:var(--nav);
+  border-top:1px solid rgba(var(--accent-rgb),.35);padding:6px 6px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -8px 24px rgba(0,0,0,.18)}
+ .tbar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;border-radius:10px;
+  color:#e9e2d2;text-decoration:none;font-size:12px;font-weight:600;line-height:1.15;text-align:center}
+ .tbar a svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+ .tbar a[aria-current]{color:var(--gold2)}.tbar a.go{background:var(--gold2);color:var(--on-accent)}
+ body{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
+ details.help{bottom:calc(80px + env(safe-area-inset-bottom))}.wa{bottom:calc(80px + env(safe-area-inset-bottom))}
+ footer{padding-bottom:30px}
+ /* the header: one tidy row, the clock off, the free check lives in the bar */
+ header .clock{display:none}header .wrap{min-height:56px;gap:10px}nav.top{gap:4px 14px}nav.top a{padding:8px 2px}
+ nav.top a.btn-lead{display:none}.brand{font-size:20px}
+ /* touch targets */
+ .cta{min-height:48px;display:inline-flex;align-items:center;justify-content:center}
+ form.lead input,form.lead select,form.lead textarea,.search input,.picks input,form.calc input,form.calc select{min-height:48px;font-size:16px}
+ form.lead fieldset label,form.lead .consent,.check-group label{min-height:44px;padding:6px 0}
+ form.lead fieldset input,form.lead .consent input,.check-group input{width:22px;height:22px;flex:none}
+ details.lang summary,details.theme summary{min-height:40px;display:flex;align-items:center}
+ .paths{grid-template-columns:1fr;gap:10px}.door-main{padding:14px 14px 10px}.door-main b{font-size:21px}
+ .door-more{padding:0 14px 14px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent)}
+ .door-more::-webkit-scrollbar{display:none}.door-more a{flex:none;min-height:40px;display:inline-flex;align-items:center}
+}
+/* CPUX-36: a shorter home page on phones - the lists that are repeated further down fold away */
+@media (max-width:640px){
+ .welcome .lead{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+ .welcome .asks,.welcome .promise{display:none}
+ .welcome .ctas{display:grid;gap:8px}.welcome .ctas .cta{margin:0;width:100%}
+ .wgrid{grid-template-columns:1fr 1fr;gap:10px}.wcard{grid-template-columns:1fr;padding:12px}.wcard svg{grid-row:auto}.wcard span{display:none}
+ section.hero .lead{display:none}
+ .hp-pop .grid{grid-template-columns:1fr 1fr;gap:8px}.hp-pop .card.place{padding:10px 12px}.hp-pop .card.place:nth-child(n+9){display:none}
+ .hp-guides .card:nth-child(n+5){display:none}.hp-points,.hp-roles{display:none}
+ .hp-all .cta{width:100%}
+}
 /* ---- answers under "What buyers ask" and the help corner */
 .qa{border-bottom:1px solid var(--line)}.qa summary{cursor:pointer;padding:7px 0;font-weight:600;list-style:none;display:flex;gap:8px;align-items:baseline}
 .qa summary::-webkit-details-marker{display:none}.qa summary::before{content:"+";color:var(--accent-ink);font-weight:800;width:14px;flex:none}
