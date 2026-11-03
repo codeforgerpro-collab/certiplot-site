@@ -176,6 +176,54 @@ form.lead fieldset.pass{border:1px solid var(--line);border-radius:10px;padding:
  .hp-guides .card:nth-child(n+5){display:none}.hp-points,.hp-roles{display:none}
  .hp-all .cta{width:100%}
 }
+.start{max-width:780px}
+.start h1{font-size:clamp(26px,6.4vw,38px);line-height:1.12;margin-bottom:8px}
+.st-who{font-size:18px;margin:22px 0 10px}
+.st-tiles{display:grid;gap:12px;grid-template-columns:1fr}
+.st-tile{display:grid;grid-template-columns:44px 1fr;column-gap:14px;row-gap:2px;align-items:center;min-height:104px;padding:18px;
+  border:2px solid var(--line);border-radius:18px;background:var(--card);color:var(--ink);text-decoration:none;-webkit-tap-highlight-color:transparent}
+.st-tile svg{grid-row:1/3;width:44px;height:44px;padding:9px;border-radius:12px;fill:none;stroke:var(--gold);stroke-width:1.8;stroke-linecap:round;
+  stroke-linejoin:round;background:rgba(184,137,59,.14)}
+.st-tile b{font-family:'CP Brand',Georgia,serif;font-size:26px;line-height:1.1}
+.st-tile span{grid-column:2;color:var(--muted);font-size:15px;line-height:1.4}
+.st-tile.buy{border-color:var(--gold2)}
+.st-tile.sell{background:var(--nav);border-color:var(--nav);color:#fff}
+.st-tile.sell span{color:#cfc8b8}.st-tile.sell svg{stroke:#fff;background:rgba(255,255,255,.12)}
+.st-tile:hover,.st-tile:focus-visible{box-shadow:0 10px 30px rgba(15,42,68,.14);outline:3px solid rgba(184,137,59,.45);outline-offset:2px}
+.st-pick.chosen .st-who{display:none}
+.st-pick.chosen .st-tiles{grid-template-columns:repeat(3,1fr);gap:8px}
+.st-pick.chosen .st-tile{min-height:0;padding:10px 12px;grid-template-columns:1fr;border-width:2px;opacity:.7}
+.st-pick.chosen .st-tile svg,.st-pick.chosen .st-tile span{display:none}
+.st-pick.chosen .st-tile b{font-size:18px}
+.st-pick.chosen .st-tile:hover{opacity:1}
+.st-pane{margin-top:18px}.st-pane h2{margin:0 0 10px}
+form.st-form .cta{width:100%;text-align:center;margin:4px 0 0;padding:14px 20px;font-size:17px}
+form.st-form .msg{color:var(--bad);font-size:14px;min-height:0;margin:0}
+.st-out{margin-top:20px}
+.st-head{background:var(--nav);color:#fff;border-radius:16px;padding:18px 20px}
+.st-nx{margin:0 0 4px;color:#cfc8b8;font-size:14px}
+.st-h{margin:0;font-family:'CP Brand',Georgia,serif;font-size:22px;line-height:1.25}
+.st-plan{margin:24px 0 8px;outline:0}
+.st-steps{list-style:none;counter-reset:st;padding:0;margin:0;display:grid;gap:12px}
+.st-steps>li{counter-increment:st;position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 16px 12px 58px}
+.st-steps>li::before{content:counter(st);position:absolute;inset-inline-start:14px;top:14px;width:30px;height:30px;border-radius:50%;
+  background:var(--gold2);color:var(--on-accent,#fff);font-weight:700;display:grid;place-items:center}
+.st-steps h3{margin:0 0 6px;font-size:18px}
+.st-steps p,.st-steps li li{font-size:16px;line-height:1.5}
+.st-steps ul{margin:0;padding-inline-start:20px}
+.st-steps .cta{padding:10px 16px;font-size:15px}
+.st-end{margin:18px 0 6px;padding:18px;border:2px solid var(--gold2);border-radius:16px}
+.st-end p{margin:0 0 6px}
+.st-end .cta{display:block;text-align:center;padding:14px 20px;font-size:17px}
+.st-tools{margin-top:22px}
+.st-req{margin-top:22px;padding:18px;border:2px solid var(--gold2);border-radius:16px;background:var(--card)}
+.st-req h2{margin-top:0}
+@media(min-width:720px){.st-tiles{grid-template-columns:repeat(3,1fr)}.st-tile{grid-template-columns:1fr;min-height:170px;align-content:start}
+  .st-tile svg{grid-row:auto;margin-bottom:6px}.st-tile span{grid-column:1}
+  .st-pick.chosen .st-tile{min-height:0}.st-end .cta{display:inline-block}form.st-form .cta{width:auto}}
+@media(max-width:560px){form.lead.st-form{grid-template-columns:1fr}.st-steps>li{padding:14px 14px 10px 14px;padding-top:50px}
+  .st-steps>li::before{top:12px}}
+@media(prefers-reduced-motion:reduce){.st-tile{transition:none}}
 /* ---- answers under "What buyers ask" and the help corner */
 .qa{border-bottom:1px solid var(--line)}.qa summary{cursor:pointer;padding:7px 0;font-weight:600;list-style:none;display:flex;gap:8px;align-items:baseline}
 .qa summary::-webkit-details-marker{display:none}.qa summary::before{content:"+";color:var(--accent-ink);font-weight:800;width:14px;flex:none}
