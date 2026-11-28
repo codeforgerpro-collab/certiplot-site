@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-<url><loc>https://codeforgerpro-collab.github.io/certiplot-site/el/</loc><lastmod>2026-11-27</lastmod>
+<url><loc>https://codeforgerpro-collab.github.io/certiplot-site/el/</loc><lastmod>2026-11-28</lastmod>
 <xhtml:link rel="alternate" hreflang="en" href="https://codeforgerpro-collab.github.io/certiplot-site/"/>
 <xhtml:link rel="alternate" hreflang="el" href="https://codeforgerpro-collab.github.io/certiplot-site/el/"/>
 <xhtml:link rel="alternate" hreflang="x-default" href="https://codeforgerpro-collab.github.io/certiplot-site/"/>
@@ -85,7 +85,7 @@
 <xhtml:link rel="alternate" hreflang="el" href="https://codeforgerpro-collab.github.io/certiplot-site/el/epikoinonia/"/>
 <xhtml:link rel="alternate" hreflang="x-default" href="https://codeforgerpro-collab.github.io/certiplot-site/contact/"/>
 </url>
-<url><loc>https://codeforgerpro-collab.github.io/certiplot-site/el/perioxes/</loc><lastmod>2026-11-24</lastmod>
+<url><loc>https://codeforgerpro-collab.github.io/certiplot-site/el/perioxes/</loc><lastmod>2026-11-28</lastmod>
 <xhtml:link rel="alternate" hreflang="en" href="https://codeforgerpro-collab.github.io/certiplot-site/areas/"/>
 <xhtml:link rel="alternate" hreflang="el" href="https://codeforgerpro-collab.github.io/certiplot-site/el/perioxes/"/>
 <xhtml:link rel="alternate" hreflang="x-default" href="https://codeforgerpro-collab.github.io/certiplot-site/areas/"/>
@@ -5380,7 +5380,7 @@
 <xhtml:link rel="alternate" hreflang="el" href="https://codeforgerpro-collab.github.io/certiplot-site/el/nea/"/>
 <xhtml:link rel="alternate" hreflang="x-default" href="https://codeforgerpro-collab.github.io/certiplot-site/news/"/>
 </url>
-<url><loc>https://codeforgerpro-collab.github.io/certiplot-site/el/elegxos-timis/</loc><lastmod>2026-11-20</lastmod>
+<url><loc>https://codeforgerpro-collab.github.io/certiplot-site/el/elegxos-timis/</loc><lastmod>2026-11-28</lastmod>
 <xhtml:link rel="alternate" hreflang="en" href="https://codeforgerpro-collab.github.io/certiplot-site/price-check/"/>
 <xhtml:link rel="alternate" hreflang="el" href="https://codeforgerpro-collab.github.io/certiplot-site/el/elegxos-timis/"/>
 <xhtml:link rel="alternate" hreflang="x-default" href="https://codeforgerpro-collab.github.io/certiplot-site/price-check/"/>
@@ -5394,6 +5394,16 @@
 <xhtml:link rel="alternate" hreflang="en" href="https://codeforgerpro-collab.github.io/certiplot-site/start/"/>
 <xhtml:link rel="alternate" hreflang="el" href="https://codeforgerpro-collab.github.io/certiplot-site/el/ksekinaste/"/>
 <xhtml:link rel="alternate" hreflang="x-default" href="https://codeforgerpro-collab.github.io/certiplot-site/start/"/>
+</url>
+<url><loc>https://codeforgerpro-collab.github.io/certiplot-site/el/ekthesi-apodeixis/</loc><lastmod>2026-11-28</lastmod>
+<xhtml:link rel="alternate" hreflang="en" href="https://codeforgerpro-collab.github.io/certiplot-site/proof-report/"/>
+<xhtml:link rel="alternate" hreflang="el" href="https://codeforgerpro-collab.github.io/certiplot-site/el/ekthesi-apodeixis/"/>
+<xhtml:link rel="alternate" hreflang="x-default" href="https://codeforgerpro-collab.github.io/certiplot-site/proof-report/"/>
+</url>
+<url><loc>https://codeforgerpro-collab.github.io/certiplot-site/el/proypologismos/</loc><lastmod>2026-11-28</lastmod>
+<xhtml:link rel="alternate" hreflang="en" href="https://codeforgerpro-collab.github.io/certiplot-site/budget/"/>
+<xhtml:link rel="alternate" hreflang="el" href="https://codeforgerpro-collab.github.io/certiplot-site/el/proypologismos/"/>
+<xhtml:link rel="alternate" hreflang="x-default" href="https://codeforgerpro-collab.github.io/certiplot-site/budget/"/>
 </url>
 <url><loc>https://codeforgerpro-collab.github.io/certiplot-site/el/ekthesi-agoras/</loc><lastmod>2026-11-25</lastmod>
 <xhtml:link rel="alternate" hreflang="en" href="https://codeforgerpro-collab.github.io/certiplot-site/market-report/"/>
@@ -5410,7 +5420,7 @@
 <xhtml:link rel="alternate" hreflang="el" href="https://codeforgerpro-collab.github.io/certiplot-site/el/piges/"/>
 <xhtml:link rel="alternate" hreflang="x-default" href="https://codeforgerpro-collab.github.io/certiplot-site/sources/"/>
 </url>
-<url><loc>https://codeforgerpro-collab.github.io/certiplot-site/el/perioxes/new/</loc><lastmod>2026-11-27</lastmod>
+<url><loc>https://codeforgerpro-collab.github.io/certiplot-site/el/perioxes/new/</loc><lastmod>2026-11-28</lastmod>
 <xhtml:link rel="alternate" hreflang="en" href="https://codeforgerpro-collab.github.io/certiplot-site/areas/new/"/>
 <xhtml:link rel="alternate" hreflang="el" href="https://codeforgerpro-collab.github.io/certiplot-site/el/perioxes/new/"/>
 <xhtml:link rel="alternate" hreflang="x-default" href="https://codeforgerpro-collab.github.io/certiplot-site/areas/new/"/>

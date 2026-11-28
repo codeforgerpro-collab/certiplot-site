@@ -109,7 +109,7 @@
       .sort(function(a,b){ return a[1].localeCompare(b[1],lang); })
       .forEach(function(x){ var o=D.createElement('option'); o.value=x[0]; o.textContent=x[1]; sel.appendChild(o); });
     var guess=''; (navigator.languages||[navigator.language||'']).some(function(l){ var r=(l||'').split('-')[1]; if(r&&r.length===2){ guess=r.toUpperCase(); return true; } return false; });
-    if(guess) sel.value=guess;
+    if(guess&&!(inp.form&&inp.form.classList.contains('quick'))) sel.value=guess;   // FORM-3: the folded list is not pre-filled
     inp.parentNode.replaceChild(sel,inp);
     var f=sel.form, city=f&&f.querySelector('input[name=city]'); if(!city) return;
     var dl=D.createElement('datalist'); dl.id='cp-cities-'+ix; f.appendChild(dl); city.setAttribute('list',dl.id);
@@ -142,7 +142,7 @@
       if(em) em.value=em.value.trim();
       var fd=new FormData(f), data={};
       fd.forEach(function(v,k){ data[k]=(k in data&&data[k])?data[k]+', '+v:v; });
-      if(!data.name||!data.email||!data.area||!f.querySelector('[name=consent]').checked){ msg.className='msg bad'; msg.textContent=S.required; return; }
+      if((!data.name&&!f.classList.contains('quick'))||!data.email||!data.area||!f.querySelector('[name=consent]').checked){ msg.className='msg bad'; msg.textContent=S.required; return; }
       var pf=f.querySelector('fieldset.pass');                            // 29 Oct 2026: agree or not - one must be chosen
       if(pf&&!f.querySelector('[name=pass_ok]:checked')){ pf.classList.add('need'); msg.className='msg bad'; msg.textContent=pf.getAttribute('data-need')||S.required;
         var r1=pf.querySelector('input'); if(r1) r1.focus(); return; }
@@ -156,10 +156,11 @@
       var cs=f.querySelector('select[name=country]'); if(cs&&cs.value) data.country=cs.selectedOptions[0].textContent+' ('+cs.value+')';
       if(wantsPhone&&data.phone) data.whatsapp='https://wa.me/'+data.phone.replace(/\D/g,'');
       if(data.botcheck) return;
-      data.language=lang; data.page=location.href;
+      data.language=lang; data.page=location.href; if(f.classList.contains('quick')&&navigator.language) data.browser_language=navigator.language;
       var det=f.classList.contains('details'); if(det&&data.ref) data.ref=String(data.ref);
       var sel=f.classList.contains('seller');                            // 29 Oct 2026: an owner's valuation request
-      var subject=(det?'Certiplot details - ':sel?'Certiplot seller - ':'Certiplot lead - ')+data.area+' - '+lang.toUpperCase()+(det||sel?'':' - '+(data.purpose||''));
+      var wat=f.classList.contains('watch');                              // PLUS-1: "keep me posted about this area"
+      var subject=(wat?'Certiplot watch - ':det?'Certiplot details - ':sel?'Certiplot seller - ':'Certiplot lead - ')+data.area+' - '+lang.toUpperCase()+(det||sel||wat?'':' - '+(data.purpose||''));
       var key=f.getAttribute('data-key'), mail=unmail(f.getAttribute('data-email')||'');
       if(!key){ var body=Object.keys(data).filter(function(k){return k!=='consent'&&k!=='botcheck'}).map(function(k){return k+': '+data[k]}).join('\n');
         location.href='mailto:'+mail+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body); msg.className='msg bad'; msg.textContent=S.error; return; }

@@ -14,7 +14,7 @@
     return N.find(function(r){ return norm(r[1]+' — '+r[3])===q; })||N.find(function(r){ return norm(r[1])===q; })||N.find(function(r){ return norm(r[1]).indexOf(q)===0; }); }
   function run(){
     var z=find(); if(!z){ out.innerHTML=F.area.value?'<p class="small">'+esc(T.pick||I.pc.pick)+'</p>':''; return; }
-    var d=P[z[0]]||{}, kind=F.type.value, r=(d.t||{})[kind], m2=num(F.m2.value), h='', name=z[1];
+    var d=P[z[0]]||{}, kind=F.type.value, r=(d.t||{})[kind], m2=num(F.m2.value), h='', name=z[1], act='';
     try{ history.replaceState(null,'','#'+encodeURIComponent(z[0]+'|'+kind)); }catch(e){}
     var cta=D.getElementById('cp-pc-cta'); if(cta) cta.href=cta.href.split('?')[0]+'?area='+encodeURIComponent(name);
     var sf=D.getElementById('cp-sell-form'); if(sf){ if(!sf.area.value||sf.area.getAttribute('data-auto')){ sf.area.value=name; sf.area.setAttribute('data-auto','1'); }
@@ -35,10 +35,19 @@
           else { cls=a>r[2]*1.5?'bad':'warn'; txt=fmt(a>r[2]*1.5?T.far_above:T.above,{pct:n(pct)}); }
           var lo=r[1]!=null?r[1]:r[0]*0.7, hi=r[2]!=null?r[2]:r[0]*1.3, mx=Math.max(hi*1.6,a*1.1), sc=function(v){return Math.max(0,Math.min(100,100*v/mx));};
           h+='<p class="verdict '+cls+'">'+esc(txt)+'</p><div class="gauge" aria-hidden="true"><span class="rng" style="inset-inline-start:'+sc(lo)+'%;width:'+(sc(hi)-sc(lo))+'%"></span>'
-            +'<span class="mid" style="inset-inline-start:'+sc(r[0])+'%"></span><span class="you" style="inset-inline-start:'+sc(a)+'%"></span></div>'; }
+            +'<span class="mid" style="inset-inline-start:'+sc(r[0])+'%"></span><span class="you" style="inset-inline-start:'+sc(a)+'%"></span></div>';
+          if(box.getAttribute('data-proof')){                          // PROOF-1: the one-page report, and sharing the verdict
+            var SH={}; try{ SH=JSON.parse(box.getAttribute('data-share')||'{}'); }catch(e){}
+            var pu=box.getAttribute('data-proof')+'?z='+encodeURIComponent(z[0])+'&k='+kind+'&m2='+m2+'&price='+price;
+            var su=location.origin+location.pathname+'?price='+price+'&m2='+m2+'#'+encodeURIComponent(z[0]+'|'+kind);
+            var st=name+': '+txt+' \u2014 '+fmt(T.ask,{eur:n(a)})+' \u00b7 Certiplot';
+            act='<p class="pc-act"><a class="cta" href="'+esc(pu)+'">'+esc(SH.report||'')+'</a>'
+              +'<a class="cta alt" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(st+' '+su)+'">'+esc(SH.wa||'')+'</a>'
+              +'<button type="button" class="cta alt" data-copy="'+esc(su)+'" data-done="'+esc(SH.copied||'')+'">'+esc(SH.copy||'')+'</button></p>'; } }
       } else h+='<p>'+esc(T.none)+'</p>';
       if(d.z) h+='<p>'+esc(fmt(T.zone,{lo:n(d.z[0]),hi:n(d.z[1])}))+'</p>';
       if(d.s&&price) h+='<p>'+esc(fmt(T.yield,{income:n(d.s[1]),pct:(100*d.s[1]/price).toFixed(1)}))+'</p>';
+      h+=act;
     } else {
       if(r&&r[0]&&m2){ h+='<p class="big">'+esc(fmt(T.range,{area:name,lo:n((r[1]||r[0]*0.8)*m2),hi:n((r[2]||r[0]*1.2)*m2),p25:r[1]!=null?n(r[1]):'–',p75:r[2]!=null?n(r[2]):'–',m2:n(m2)}))+'</p>'; }
       if(r&&r[0]) h+='<p>'+esc(fmt(T.mid,{eur:n(r[0]),deeds:n(r[3]),first:ml(r[4]),last:ml(r[5])}))+' <span class="small">· '+esc(I.grades[r[6]]||'')+'</span></p>'+via+askp;
@@ -63,4 +72,6 @@
     if(q.get('price')) F.price&&(F.price.value=q.get('price')); if(q.get('m2')) F.m2.value=q.get('m2');
     run(); });
   F.addEventListener('input',run); F.addEventListener('change',run);
+  out.addEventListener('click',function(e){ var b=e.target.closest('[data-copy]'); if(!b||!navigator.clipboard) return;
+    navigator.clipboard.writeText(b.getAttribute('data-copy')).then(function(){ b.textContent=b.getAttribute('data-done')||b.textContent; }); });
 })();
