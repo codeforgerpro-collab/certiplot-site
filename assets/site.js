@@ -33,14 +33,16 @@
     var rs=D.getElementById('reset'); if(rs) rs.addEventListener('click',function(){ st={}; try{localStorage.removeItem(key)}catch(e){} boxes.forEach(function(b){b.checked=false}); upd(); });
     var pr=D.getElementById('print'); if(pr) pr.addEventListener('click',function(){ window.print(); });
     upd(); }
-  // ---- the visitor's date and time, and the time in Greece & Cyprus when it differs
+  // ---- LOOK-1 (28 Nov 2026): the time in UTC first, then the visitor's own time, then Greece & Cyprus when it differs
   var ck=D.querySelector('header .clock'), ct=D.getElementById('clk');
   if(ck&&ct&&window.Intl){ var loc=lang==='en'?undefined:lang;
+    var hm=function(n,tz){ return new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:tz}).format(n); };
     var tick=function(){ try{ var n=new Date(), o={weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'};
-      var mine=new Intl.DateTimeFormat(loc,o).format(n), gr=new Intl.DateTimeFormat(loc,{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Athens'}).format(n),
-          same=new Intl.DateTimeFormat('en',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Athens'}).format(n)===new Intl.DateTimeFormat('en',{hour:'2-digit',minute:'2-digit'}).format(n);
-      ct.setAttribute('datetime',n.toISOString());
-      ct.innerHTML=same? '<b>'+mine+'</b> · '+ck.getAttribute('data-gr') : ck.getAttribute('data-you')+': <b>'+mine+'</b> · '+ck.getAttribute('data-gr')+': <b>'+gr+'</b>';
+      var utc=hm(n,'UTC'), mine=new Intl.DateTimeFormat(loc,o).format(n), mineHm=hm(n,undefined), gr=hm(n,'Europe/Athens');
+      var h='<b>UTC '+utc+'</b>';
+      if(mineHm!==utc) h+=' · '+ck.getAttribute('data-you')+': <b>'+mine+'</b>';
+      if(gr!==mineHm) h+=' · '+ck.getAttribute('data-gr')+': <b>'+gr+'</b>'; else h+=' · '+ck.getAttribute('data-gr');
+      ct.setAttribute('datetime',n.toISOString()); ct.innerHTML=h;
     }catch(e){} }; tick(); setInterval(tick,30000); }
   // ---- a link to one village (#v-...): bring its row into view once the page has settled
   if(/^#v-\d+$/.test(location.hash)){ var vt=D.getElementById(location.hash.slice(1)); if(vt) setTimeout(function(){ vt.scrollIntoView({block:'center'}); },60); }
@@ -134,6 +136,7 @@
     pu.addEventListener('change',sw); sw();
   });
   // ---- the area from the price check (?area=...) on the area-check form
+  try{ if(new URLSearchParams(location.search).get('purpose')==='pro') D.querySelectorAll('form.lead select[name=purpose]').forEach(function(sl){ sl.selectedIndex=sl.options.length-1; }); }catch(e){}
   try{ var qa=new URLSearchParams(location.search).get('area'); if(qa) D.querySelectorAll('form.lead:not(.tool) [name=area]').forEach(function(i){ if(!i.value) i.value=qa; }); }catch(e){}
   // ---- the area-check form
   D.querySelectorAll('form.lead:not(.tool)').forEach(function(f){
